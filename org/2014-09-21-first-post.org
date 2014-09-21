@@ -1,0 +1,15 @@
+#+BEGIN_HTML
+---
+format: post
+title: My First Post
+excerpt: This first blog post details how I set up org-mode and Github pages to blog.
+---
+#+END_HTML
+
+* {{ page.title }}
+I decided that it was high time to engage in the creation of a blog, if for no other
+reason than to bring some discipline to my sense that I should be trying to engage more
+with the community that brings so much awesome into my life.
+* Using Github Pages
+* Using Org-mode
+* Markdown Export
