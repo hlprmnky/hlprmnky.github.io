@@ -1,5 +1,18 @@
 ---
-format: default
+title: An Blog
+layout: default
 ---
-
-"Hello, world"
+<div>Here is where I will record fun things I learn, stupid tricks I try that somehow work as expected, and other thoughts I want to share.
+	I sincerely hope that some of these posts are useful to you, and that I can give back some small measure of the awesome the 
+	community has freely shared with me.</div>
+<!-- This loops through the paginated posts -->
+<h2>Posts</h2>
+{% for post in paginator.posts %}
+  <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+  <p class="author">
+    <span class="date">{{ post.date }}</span>
+  </p>
+  <div class="content">
+    {{ post.excerpt }}
+  </div>
+{% endfor %}

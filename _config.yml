@@ -1,1 +1,2 @@
-exclude: org/, Gemfile, Gemfile.lock
+exclude: [org/, Gemfile, Gemfile.lock]
+paginate: 5
