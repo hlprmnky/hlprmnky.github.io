@@ -1,2 +1,5 @@
 exclude: [org/, Gemfile, Gemfile.lock]
 paginate: 5
+markdown: kramdown
+kramdown:
+  smart_quotes: ["apos", "apos", "quot", "quot"]

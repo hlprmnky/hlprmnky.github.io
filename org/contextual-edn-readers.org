@@ -1,0 +1,10 @@
+#+OPTIONS: toc:nil
+#+BEGIN_HTML
+---
+layout: post
+title: Stupid EDN Tricks: Context-aware Custom Tag
+excerpt: Quick outline of building a custom EDN reader tag that is context-aware.
+---
+#+END_HTML
+
+** {{ page.title }}
