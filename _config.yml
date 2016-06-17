@@ -1,5 +1,7 @@
 exclude: [org/, Gemfile, Gemfile.lock]
 paginate: 5
+gems: [jekyll-paginate]
 markdown: kramdown
 kramdown:
+  input: GFM
   smart_quotes: ["apos", "apos", "quot", "quot"]

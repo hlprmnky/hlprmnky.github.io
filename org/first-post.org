@@ -2,8 +2,8 @@
 #+BEGIN_HTML
 ---
 layout: post
-title: My First Post **Draft**
-excerpt: This first blog post details how I set up org-mode and Github pages to blog.
+title: Colophon
+excerpt: This first blog post details how I set up a blog with org-mode, Jekyll, and Github pages.
 ---
 #+END_HTML
 
@@ -16,7 +16,7 @@ My hope is that maintaining a blog will imbue this vague desire with some discip
 to engage in venues where blog posts might be read by others.
 
 The first post-worthy adventure I have found myself on is actually setting myself up with a blog that is
-easy enough for me to maintain that I might *actually do it*. I ended up using a combination of:
+easy enough for me to maintain that I might _actually do it_. I ended up using a combination of:
 
    - Github Pages for hosting
    - Org-mode and org-export-md to produce content, and
@@ -36,16 +36,49 @@ It has taken some work, but now that it's set up, I find it super-easy and fun t
 ** Using Org-mode and org-export-md
    So, now you have a repo set up where you can work with Markdown (or Textile or HTML files) and serve up static HTML. The next step is to
    get from org-mode outlines to the Markdown output that Jekyll needs to do its work. Org-mode has a Markdown exporter available, in my
-   setup I had had to add to my ~emacs.d~ to put it in the export menu by default:
+   setup I had to add to my ~emacs.d/init.el~ to put it in the export menu by default:
 
    ~;; Add markdown export mode to org defaults~
 
    ~(setq org-export-backends (cons 'md' 'org-export-backends))~
 
-   - =#+OPTIONS: toc:nil= to suppress HTML TOC in Markdown files
-   - YAML front-matter goes in ~#+BEGIN_HTML ... #+END_HTML~ block
-   - Add Markdown to default output by putting <command> somewhere your init.el will see it
-   - org/.org -> ~_drafts/*.md~ -> ~_posts/*.md~ when happy with output
+   When working with your files in org-mode, keep in mind the following points:
+
+   - Adding =#+OPTIONS: toc:nil= to your ~.org~ files will suppress the creation of an HTML TOC in your Markdown files, which you want
+      because Jekyll won't know what to do with HTML
+   - Jekyll requires a YAML front-matter block at the top of each post file. In your ~.org~ file, this goes in a ~#+BEGIN_HTML ... #+END_HTML~ 
+      block at the top of the file
+   
+   Your workflow will now look something like this: 
+
+   - Edit org-mode files in ~org/*.org~ 
+   - Export Markdown: ~C-c C-e~, ~m~, ~M~ to get a buffer, then save in ~_drafts~
+   - Once you're happy with a draft, move it from  ~_drafts/*.md~ to  ~_posts/*.md~ When you push your 
+     local changes to your Github Pages repository, anything in ~_posts/~ will be processed into  a real, live HTML blog post.
+
 ** Running Jekyll locally
-   - github-pages gemset
-   - ~bundle exec jekyll serve --watch --drafts~ in a shell window/screen
+   You don't have to push things up to Github to see how Jekyll will render them. You can run it locally and let it process your Markdown locally.
+   Jekyll is a Ruby project, so you will be installing some gems and running with either ~jekyll~ or ~bundle exec jekyll~ depending on how 
+   comfortable you are having Ruby stuff installed wherever. I prefer to set up a "local" gemset just for my blogging work; it is easy to do 
+   with e.g. ~rvm use default@jekyll~. Either way you set things up, in your Github Pages repo, you will need a ~Gemfile~ and a ~_config.yml~
+   Here are what mine look like: 
+
+*** Gemfile
+   #+BEGIN_SRC ruby
+   source 'https://rubygems.org'
+   gem 'github-pages'
+   gem 'therubyracer'
+   #+END_SRC
+*** _config.yml
+   #+BEGIN_SRC yaml
+   exclude: [org/, Gemfile, Gemfile.lock]
+   paginate: 5
+   gems: [jekyll-paginate]
+   markdown: kramdown
+   kramdown:
+     input: GFM
+     smart_quotes: ["apos", "apos", "quot", "quot"]
+   #+END_SRC
+
+   Once you have those set up, you should be able to run ~bundle install~ followed by ~bundle exec jekyll serve --watch --drafts~ in a terminal 
+   to see how Github Pages will render your blog site.
